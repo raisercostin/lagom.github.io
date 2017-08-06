@@ -1,8 +1,8 @@
 @import com.lightbend.docs.Context
-@import com.lightbend.lagom.docs.VersionPage
-@import com.lightbend.lagom.docs.Section
-@import com.lightbend.lagom.docs.LagomContext
-@import com.lightbend.lagom.docs.NavLink
+@import eu.dcsi.sekyll.docs.VersionPage
+@import eu.dcsi.sekyll.docs.Section
+@import eu.dcsi.sekyll.docs.LagomContext
+@import eu.dcsi.sekyll.docs.NavLink
 
 @(path: String, content: Html, context: Context, language: String, version: String, versions: Seq[VersionPage], nav: List[Section],
         canonical: Option[String], nextLinks: Seq[NavLink])(implicit ctx: LagomContext)

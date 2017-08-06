@@ -1,5 +1,6 @@
-target
-.idea
+/target/
+/target2/
+/.idea
 /bin/
 ._
 .cache-main
@@ -7,3 +8,5 @@ target
 .project
 .settings
 *.DS_Store
+/project/target/
+/project/project/

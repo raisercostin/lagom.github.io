@@ -2,7 +2,7 @@ import java.io.Closeable
 
 import scala.concurrent.Await
 
-lazy val `sekyll-docs` = (project in file("."))
+lazy val `sekyll` = (project in file("."))
   .enablePlugins(SbtTwirl, SbtWeb)
 
 scalaVersion := "2.11.7"
@@ -82,7 +82,7 @@ generateHtml <<= Def.taskDyn {
   val blogDir = sourceDirectory.value / "blog"
   Def.task {
     (runMain in Compile).toTask(Seq(
-      "sekyll.docs.DocumentationGenerator",
+      "eu.dcsi.sekyll.docs.DocumentationGenerator",
       outputDir,
       docsDir,
       markdownDir,

@@ -1,4 +1,4 @@
-package eu.dcsi.sekyll
+package eu.dcsi.sekyll.docs
 
 import java.io.File
 import java.nio.file.{Files, StandardCopyOption}
