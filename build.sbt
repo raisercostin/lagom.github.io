@@ -14,7 +14,7 @@ libraryDependencies ++= Seq(
   "org.webjars.bower" % "waypoints" % "4.0.0",
   "org.webjars" % "prettify" % "4-Mar-2013",
   "org.webjars" % "bootstrap" % "4.0.0-alpha.6-1",
-  "com.lightbend.markdown" %% "lightbend-markdown-server" % "1.5.0",
+  "com.lightbend.markdown" %% "lightbend-markdown-server" % "1.5.2",
   "org.yaml" % "snakeyaml" % "1.12"
 )
 

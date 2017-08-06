@@ -42,3 +42,12 @@ Edit the front matter to suit your needs. The `title` and `date` fields are comp
 The `tags` field can be used to specify a space separated list of tags. Multi-word tags can be configured by separating the words with a `+` symbol. The `summary` field can be used to provide a summary, this is what's displayed on the blog index page as well as on the tag index pages, and it will be markdown rendered. Usually it will simply be the first paragraph of the blog post.
 
 The remainder of the file is the blog post. You can preview your blog post by following the [Developing the website](#developing-the-website) instructions above.
+
+# Release
+
+## Testing locally
+
+- eclipse: `sbt eclipse`
+- compile: `sbt clean compile`
+- generate web: `sbt webStage`
+- start server for in dev mode with autorefresh: `sbt run` . Then go on http://localhost:8080/

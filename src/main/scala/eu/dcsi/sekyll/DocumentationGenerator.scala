@@ -121,17 +121,18 @@ object DocumentationGenerator extends App {
     blogSummary, assetFingerPrint)
 
   def generatePage(name: String, template: Template1[LagomContext, Html]): OutputFile = {
-    savePage(name, template.render(lagomContext))
+    savePage(s"generatePage $name", name, template.render(lagomContext))
   }
 
   def generateRedirect(from: String, to: String): OutputFile = {
-    savePage(from, html.redirect(to), includeInSitemap = false)
+    savePage(s"redirect $from -> $to",from, html.redirect(to), includeInSitemap = false)
   }
 
-  def savePage(name: String, rendered: Html, includeInSitemap: Boolean = true,
+  def savePage(why:String, name: String, rendered: Html, includeInSitemap: Boolean = true,
                sitemapPriority: String = "1.0"): OutputFile = {
     val file = new File(outputDir, name)
     file.getParentFile.mkdirs()
+    Logger.info(f"savePage [${file.toPath}%-100s] reason: $why")
     Files.write(file.toPath, rendered.body.getBytes("utf-8"))
     val sitemapUrl = name match {
       case "index.html" => ""
@@ -155,7 +156,7 @@ object DocumentationGenerator extends App {
           val strippedTitle = title.dropWhile(c => c == '#' || c == ' ')
           val rendered = markdownToHtml(rest.mkString("\n"))
           val page = html.markdown(strippedTitle, Html(rendered))
-          Seq(savePage(path.replaceAll("\\.md$", ".html"), page))
+          Seq(savePage(s"From markdown [$file]",path.replaceAll("\\.md$", ".html"), page))
         case Nil => throw new IllegalArgumentException("Markdown files must start with a heading using the # syntax")
       }
     }
@@ -172,17 +173,17 @@ object DocumentationGenerator extends App {
       case (post, renderedPost) =>
         val fixedLinks = if (context.nonEmpty) FeedFormatter.makeAbsoluteLinks(renderedPost, context) else renderedPost
         val page = html.blogPost(post, fixedLinks)
-        savePage(s"blog/${post.id}.html", page, sitemapPriority = "0.8")
+        savePage(s"blogPost ${post.id}",s"blog/${post.id}.html", page, sitemapPriority = "0.8")
     } ++ blogPostsByTag.map {
       // Tag pages
       case (tag, posts) =>
         val postSummaries = posts.flatMap{ post =>
           blogPostSummaries.find(_._1.id == post.id)
         }
-        savePage(s"blog/tags/$tag.html", html.blog(s"Blog posts tagged with $tag", renderRecent = true, postSummaries))
+        savePage(s"blogPost tag=$tag",s"blog/tags/$tag.html", html.blog(s"Blog posts tagged with $tag", renderRecent = true, postSummaries))
     } :+ {
       // Index page
-      savePage("blog/index.html", html.blog("Blog", renderRecent = false, blogPostSummaries.take(10)),
+      savePage(s"blogPostIndex","blog/index.html", html.blog("Blog", renderRecent = false, blogPostSummaries.take(10)),
         sitemapPriority = "0.5")
     } :+ {
       // Feed
@@ -292,9 +293,9 @@ object DocumentationGenerator extends App {
   }
 
   val generated = templatePages.map((generatePage _).tupled) ++
-    Seq(savePage("documentation/index.html", html.documentationIndex(stableVersions, previewVersions, oldVersions, versions, communityContents))) ++
+    Seq(savePage("docIndex","documentation/index.html", html.documentationIndex(stableVersions, previewVersions, oldVersions, versions, communityContents))) ++
     versions.map { version =>
-      savePage(s"documentation/${version.name}/index.html", html.documentationVersionIndex(version), includeInSitemap = false)
+      savePage(s"docVersion $version",s"documentation/${version.name}/index.html", html.documentationVersionIndex(version), includeInSitemap = false)
     } ++
     renderMarkdownFiles("", markdownDir) ++
     blogPostFiles ++
