@@ -7,6 +7,8 @@ summary: >
     The Lagom team has released Lagom 1.3.3
 ---
 
+costin
+
 The Lagom team has released Lagom 1.3.3. This release is primarily a bugfix release, fixing issues related to Cassandra and Kafka.
 
 ## Updating

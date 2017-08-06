@@ -99,11 +99,13 @@ generateHtml <<= Def.taskDyn {
 def path(segments: String*): String =  segments.mkString(java.io.File.separator)
 
 Concat.groups := Seq(
-  s"$assetFingerPrint-bootstrap-styles-concat.css" -> group(Seq(
-      path("lib", "bootstrap", "css", "bootstrap.css")
+  s"$assetFingerPrint-all.css" -> group(Seq(
+      //path("lib", "bootstrap", "css", "bootstrap.css"),
+      path("main.css")
   )),
-  s"$assetFingerPrint-bootstrap-scripts-concat.js" -> group(Seq(
-    path("lib", "bootstrap", "js", "bootstrap.js")
+  s"$assetFingerPrint-all.js" -> group(Seq(
+    path("lib", "bootstrap", "js", "bootstrap.js"),
+    path("js", "main.js")
   )),
 
   s"$assetFingerPrint-all-styles-concat.css" -> group(Seq(
