@@ -1,0 +1,9 @@
+target
+.idea
+/bin/
+._
+.cache-main
+.classpath
+.project
+.settings
+*.DS_Store
