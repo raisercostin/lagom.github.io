@@ -18,9 +18,6 @@
         @header
     </head>
     <body>
-    	@eu.dcsi.website.part.html.menu()
-    	@content
-    @* 
         <div class="off-canvas-wrapper">
             <div class="off-canvas-wrapper-inner" data-off-canvas-wrapper>
                 <div class="off-canvas position-left" id="offCanvasLeft" data-off-canvas >
@@ -146,7 +143,6 @@
                 </div>
             </div>
         </div>
-	*@
     </body>
     <script src="@context.path/@context.assetFingerPrint-all-scripts-concat.js"></script>
     @* Footer needs to be before GA, so that page experiments load first which ensure that GA can track them *@

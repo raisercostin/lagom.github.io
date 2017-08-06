@@ -205,7 +205,11 @@ object DocumentationGenerator extends App {
         savePage(s"blogPost tag=$tag",s"blog/tags/$tag.html", html.blog(s"Blog posts tagged with $tag", renderRecent = true, postSummaries))
     } :+ {
       // Index page
-      savePage(s"blogPostIndex","blog/index.html", html.blog("Blog", renderRecent = false, blogPostSummaries.take(10)),
+      savePage(s"blogPostIndex2","blog2/index.html", html.blog("Blog2", renderRecent = false, blogPostSummaries.take(10)),
+        sitemapPriority = "0.5")
+    } :+ {
+      // Index page
+      savePage(s"blogPostIndex","blog/index.html", eu.dcsi.website.html.blog("Blog", renderRecent = false, blogPostSummaries.take(10)),
         sitemapPriority = "0.5")
     } :+ {
       // Feed

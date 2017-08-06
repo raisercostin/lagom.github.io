@@ -1,5 +1,7 @@
 package eu.dcsi.website
 
+import play.utils.UriEncoding
+
 case class TreeNode(name: String, icon: String, children: TreeNode*)
 
 object Website {
