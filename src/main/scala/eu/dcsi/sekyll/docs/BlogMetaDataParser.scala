@@ -90,7 +90,7 @@ object BlogMetaDataParser {
           stream.close()
         }        
       } catch {
-        case e: java.io.IOException if DocumentationGenerator.devMode => {
+        case e: java.io.IOException => {//if DocumentationGenerator.devMode => {
           // GitHub might be rate-limiting us. If we're in development mode, just ignore this.
           Logger.warn(s"GitHub might be rate-limiting us; using fallback for user $name")
           GitHubUser(name, "https://www.gravatar.com/avatar/default", s"https://github.com/$name")
