@@ -13,7 +13,11 @@ import play.utils.UriEncoding
 
 import scala.collection.JavaConverters._
 import scala.xml.XML
-
+object Main {
+  def main(args: Array[String]): Unit = {
+    DocumentationGenerator.main(args)
+  }
+}
 object DocumentationGenerator extends App {
 
   val devMode = sys.props.contains("dev")

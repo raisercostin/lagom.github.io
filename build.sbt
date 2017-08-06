@@ -60,7 +60,8 @@ val runCommand = Command.make("run") { state =>
 
       val extraSettings = Seq(
         javaOptions += "-Ddev",
-        fork := true // required for javaOptions to take effect
+        //fork := true // required for javaOptions to take effect
+        fork := false //needed for debug
       )
       val stateWithExtraSettings = extracted.append(extraSettings, stateWithStop)
       Parser.parse("~web-stage", stateWithExtraSettings.combinedParser) match {
