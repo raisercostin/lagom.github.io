@@ -52,3 +52,5 @@ The remainder of the file is the blog post. You can preview your blog post by fo
 - generate web: `sbt webStage`
 - start server for in dev mode with autorefresh: `sbt run` . Then go on http://localhost:8080/
 - start server in debug mode `activator -jvm-debug 5005 "run 8080"`
+
+- Hi
