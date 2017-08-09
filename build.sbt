@@ -73,7 +73,45 @@ val runCommand = Command.make("run") { state =>
   }
 }
 
-commands ++= Seq(runCommand, stopCommand)
+val deploySiteCommand = Command.args("deploySite","deploy staged site to master branch") { (state, args) =>
+  println("start deploy")
+  /*
+  //val state2 = Command.process("clean",state)
+  //val state3 = Command.process("web-stage",state2)
+  val state3 = state
+  val remote = "origin"
+  println(System.getProperty("java.class.path"))
+  println(System.getenv("CLASSPATH"))
+  val deployBranch = "master"
+  println("hi header")
+  "cmd /c echo hi".!!
+  println("git")
+  "cmd /c git status".!!
+  println("done")
+  
+  val commands = s"""
+  git status
+  """
+  
+  echo git init;
+  echo git add .
+  echo commit -m "Website build"
+  # Push the repo to the master branch of the main repo
+  echo git push ../../.. master:$deployBranch -f
+
+  # Push the repo to the website
+  cd ../../..
+  echo git push $remote $deployBranch:master -f 
+  """
+  
+  println(s"running [$commands]")
+  commands.!!
+  state3
+  */
+  state
+}
+
+commands ++= Seq(runCommand, stopCommand, deploySiteCommand)
 
 val generateHtml = taskKey[Seq[File]]("Generate the site HTML")
 
