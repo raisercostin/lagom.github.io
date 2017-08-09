@@ -222,6 +222,7 @@ object DocumentationGenerator extends App {
     }
   }
 
+  require(docsDir.listFiles() !=null,s"${docsDir.getAbsolutePath} should return files")
   // Discover versions
   val versions = docsDir.listFiles().toSeq.map { versionDir =>
     // Discover languages
