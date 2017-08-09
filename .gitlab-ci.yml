@@ -1,5 +1,5 @@
 pages:
-  scripts:
-  - echo "starting"
+  script:
+  - echo "starting static noop script"
   only:
   - master
