@@ -1,4 +1,4 @@
-image: "hseeberger/scala-sbt"
+#image: "hseeberger/scala-sbt"
 
 variables:
   SBT_VERSION: "0.13.9"
