@@ -39,7 +39,8 @@ before_script:
   #- apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 642AC823
   #- apt-get update -y
   - apt-get install nodejs -y
-  - npm install
+  #- apt-get install npm -y
+  #- npm install
   - activator clean web-stage
 
 pages:
