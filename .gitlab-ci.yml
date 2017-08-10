@@ -47,6 +47,7 @@ pages:
   stage: deploy
   script:
   - echo "starting static noop script"
+  - activator clean web-stage
   artifacts:
     paths:
     - target/web/stage
