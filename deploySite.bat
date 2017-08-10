@@ -1,9 +1,10 @@
 sbt clean web-stage
 
 cd target/web
-mv target/web/stage/.gitlab-ci.yml target/web/.gitlab-ci.yml
+mv stage public
+mv public/.gitlab-ci.yml .gitlab-ci.yml
 git init
-git add stage
+git add public
 git add .gitlab-ci.yml
 git commit -m "Website build"
 
