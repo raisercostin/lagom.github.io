@@ -6,6 +6,7 @@ lazy val `sekyll` = (project in file("."))
   .enablePlugins(SbtTwirl, SbtWeb)
 
 scalaVersion := "2.11.7"
+scalacOptions += "-Ylog-classpath"
 
 libraryDependencies ++= Seq(
   "org.webjars" % "normalize.css" % "3.0.2",

@@ -10,7 +10,7 @@ git fetch origin master:master
 
 echo 
 echo "Prepare stage with master branch"
-if [ -e target/web/stage2 ]
+if [ -e target/web/stage2/.git ]
 then
 	echo "- pull"
 	{
@@ -27,7 +27,7 @@ else
 		git fetch origin master
 		git checkout master
 		
-		#git clone --branch master ../../..
+		#git clone --branch master --single-branch ../../..
 	)
 fi
 
@@ -45,6 +45,7 @@ echo "Prepare stage3 and commit"
 {
 	# Make the website a git repo
 	cd target/web/stage3
+	mv public/.gitlab-ci.yml gitlab-ci.yml
 	git add --all .
 	git commit -m "Website build"
 	mv public/* ../stage/
