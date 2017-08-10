@@ -1,21 +1,14 @@
-echo Builds and deploys the website to www.lagomframework.com
-set remote="origin"
-set deployBranch="master"
-
-echo Build the website
 sbt clean web-stage
 
-# Make the website a git repo
-cd target/web/stage
+cd target/web
+mv target/web/stage/.gitlab-ci.yml target/web/.gitlab-ci.yml
 git init
 git add .
 git commit -m "Website build"
 
 echo Push the repo to the master branch of the main repo
-rem git push ../../.. master:%deployBranch% -f
-git push ../../.. master:master -f
+git push ../.. master:master -f
 
 echo Push the repo to the website
-cd ../../..
-rem git push %remote% %deployBranch%:master -f
+cd ../..
 git push origin master:master -f

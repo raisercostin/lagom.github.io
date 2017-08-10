@@ -1,5 +1,0 @@
-pages:
-  script:
-  - echo "starting static noop script"
-  only:
-  - master

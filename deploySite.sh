@@ -17,14 +17,16 @@ fi
 sbt clean web-stage
 
 # Make the website a git repo
-cd target/web/stage
+#cd target/web/stage
+cd target/web/
+mv target/web/stage/.gitlab-ci.yml target/web/.gitlab-ci.yml
 git init
 git add .
 git commit -m "Website build"
 
 # Push the repo to the master branch of the main repo
-git push ../../.. master:$deployBranch -f
+git push ../.. master:$deployBranch -f
 
 # Push the repo to the website
-cd ../../..
+cd ../..
 git push $remote $deployBranch:master -f
