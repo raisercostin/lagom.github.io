@@ -1,58 +1,7 @@
-#image: rowanto/docker-java8-mvn-nodejs-npm
-image: java:8
-
-stages:
-  - test
-  - deploy
-  
-variables:
-  SBT_VERSION: "0.13.9"
-  SBT_OPTS: "-Dsbt.global.base=sbt-cache/.sbtboot -Dsbt.boot.directory=sbt-cache/.boot -Dsbt.ivy.home=sbt-cache/.ivy"
-
-cache:
-  key: "$CI_BUILD_REF_NAME" # contains either the branch or the tag, so it's caching per branch
-  untracked: true
-# This folder is cached between builds
-# http://docs.gitlab.com/ce/ci/yaml/README.html#cache
-  paths:
-    - "sbt-cache/cache/.ivy"
-    - "sbt-cache/.boot"
-    - "sbt-cache/.sbtboot"
-    - "sbt-cache/target"
-    - node_modules/
-
-
-before_script:
-  - apt-get update -y
-  #- apt-get install apt-transport-https -y
-  ## Install SBT
-  #- echo "deb http://dl.bintray.com/sbt/debian /" | tee -a /etc/apt/sources.list.d/sbt.list
-  #- apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 642AC823
-  #- apt-get update -y
-  #- apt-get install sbt -y
-  #- sbt sbt-version
-  #
-  #- apt-get update -y
-  #- apt-get install apt-transport-https -y
-  # Install SBT
-  #- echo "deb http://dl.bintray.com/sbt/debian /" | tee -a /etc/apt/sources.list.d/sbt.list
-  #- apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 642AC823
-  #- apt-get update -y
-  - apt-get install nodejs -y
-  #- apt-get install npm -y
-  #- npm install
-  ## Install SBT
-  - echo "deb http://dl.bintray.com/sbt/debian /" | tee -a /etc/apt/sources.list.d/sbt.list
-  - apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 642AC823
-  - apt-get update -y
-  - apt-get install sbt -y
-  - sbt sbt-version
-
 pages:
   stage: deploy
   script:
   - echo "starting static noop script"
-  - sbt clean web-stage
   artifacts:
     paths:
     - target/web/stage
