@@ -31,4 +31,4 @@ pages:
     paths:
     - target/web/stage
   only:
-  - master
+  - template
