@@ -1,9 +1,10 @@
+mkdir -p src\docs
 sbt clean web-stage
 
 rem gitlab really want the stage to be called public. maybe `stage` is a special word in `.gitlab-ci.yml`
 cd target/web
-mv stage public
-mv public/.gitlab-ci.yml .gitlab-ci.yml
+move stage public
+move public\.gitlab-ci.yml .gitlab-ci.yml
 git init
 git add public
 git add .gitlab-ci.yml
