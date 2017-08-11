@@ -6,9 +6,10 @@ lazy val `sekyll` = (project in file("."))
   .enablePlugins(SbtTwirl, SbtWeb)
 
 scalaVersion := "2.11.7"
-scalacOptions += "-Ylog-classpath"
+//scalacOptions += "-Ylog-classpath"
 JsEngineKeys.engineType := JsEngineKeys.EngineType.Node
-
+WebKeys.stagingDirectory := file("public")
+cleanFiles <+= baseDirectory { base => base / "public" }
 
 libraryDependencies ++= Seq(
   "org.webjars" % "normalize.css" % "3.0.2",
@@ -24,8 +25,8 @@ libraryDependencies ++= Seq(
 )
 
 resolvers += Resolver.bintrayIvyRepo("typesafe", "ivy-releases")
-
-lazy val assetFingerPrint = "git rev-parse HEAD".!!.trim
+val publicVersion = "0.1"
+val assetFingerPrint = publicVersion //"git rev-parse HEAD".!!.trim
 
 val httpServer = AttributeKey[Closeable]("http-server")
 

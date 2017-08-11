@@ -18,6 +18,10 @@ The build is made with `sbt`.
 ## ToDo
 - publish at http://sekyll.gitlab.io and http://sekyll.github.io
 - generate directly in `public/` not in `target/web/stage`
+- switch from style and sass to less as less has native compilation in sbt.
+- more control of assetFingerPrint:
+  1. manually changed on releases?
+  2. based on the actual content of each generated/combined file instead of current version in head.
 
 ## How could work
 - Generate in a separate branch and publish from there.
