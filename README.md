@@ -14,20 +14,20 @@ The build is made with `sbt`.
 - start server in debug mode `activator -jvm-debug 5005 "run 8080"`
 
 # Features
+## Done
+### 2017-08-11
+- more control of assetFingerPrint:
+  1. manually changed in the `publicVersion` value in `build.sbt`? Drawback: browsers might cache styles and javascripts for long time and will not reload new versions. The generator should generate a new file from time to time or when the resources are changed.
 
 ## ToDo
 - publish at http://sekyll.gitlab.io and http://sekyll.github.io
 - generate directly in `public/` not in `target/web/stage`
 - switch from style and sass to less as less has native compilation in sbt.
-- more control of assetFingerPrint:
-  1. manually changed on releases?
-  2. based on the actual content of each generated/combined file instead of current version in head.
 
 ## How could work
 - Generate in a separate branch and publish from there.
   - There are some issues on keeping the history of that.
 - Uploading only the sources and generate the public folder at runtime has the drawback of not having the history of the final generated site.
-
 
 # Quircks
 Here we explain what we tried and failed.
@@ -36,6 +36,13 @@ Here we explain what we tried and failed.
 - Don't publish the `target/web/stage` folder directory by configuring it in `.gitlab-ci.yml` as this will fail.
 - Sass and Style sbt-web plugins need external dependency on nodejs/npm and it will take longer time to compile.
 - Sbt fails to build in gitlab after 1h.
+
+## Rejected
+- more control of assetFingerPrint:
+  - based on the git head: `val assetFingerPrint = "git rev-parse HEAD".!!.trim`
+     - This has the problem that on any change anywhere all the files are affected.
+  - based on the actual content of each generated/combined file instead of current version in head.
+     - This is a fingerprinting on each file. Might work if a fingerprint on content on all of the files is computed.
 
 
 # Old lagom site

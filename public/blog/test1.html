@@ -6,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Lagom - Lagom 1.1 is released!</title>
+        <title>Lagom - Test1 Released</title>
         <meta name="description" content="Lagom">
         
         <meta name="viewport" content="width=device-width,maximum-scale=1"/>
@@ -115,7 +115,7 @@
                     <div class="blog-meta-details">
                         <a class="blog-author-name" href="https://github.com/jroper">James Roper</a>
                         |
-                        <span class="blog-post-date">September 21, 2016</span>
+                        <span class="blog-post-date">July 21, 2016</span>
                         <div class="blog-meta-tags">
                             
                                 <img src="/images/entypo/white/entypo_tag.svg" class="svg-icon"/>
@@ -126,7 +126,7 @@
                         </div>
                     </div>
                 </div>
-                <h1>Lagom 1.1 is released!</h1>
+                <h1>Test1 Released</h1>
             </div>
         </div>
     </header>
@@ -134,14 +134,29 @@
     <article class="fw-wrapper page-content">
         <div class="row">
             <div class="small-12 large-7 columns">
-                <p>The Lagom team are proud to announce the release of Lagom 1.1! The primary new feature of Lagom 1.1 is maven support - this includes support for running the Lagom development environment in Maven.</p>
-<p>Although running many services with hot reloads in Maven is not a traditional thing to do, as much as possible the Lagom Maven plugin makes idiomatic usage of Maven, meaning that it&rsquo;s still compatible with whatever Maven plugins or tooling that you use, including IDEs, code generators, testing tools and so on.</p>
-<p>Lagom&rsquo;s Maven integration also supports starting a full system environment as part of your integration tests, so you can do comprehensive testing of inter service communication.</p>
-<p>You can get started today with a Lagom starter app by running:</p>
-<pre class="prettyprint"><code>mvn archetype:generate -DarchetypeGroupId=com.lightbend.lagom \
-  -DarchetypeArtifactId=maven-archetype-lagom-java -DarchetypeVersion=1.1.0
-</code></pre>
-<p>For more details, read the documentation on <a href="/documentation/1.1.x/java/GettingStartedMaven.html">Getting started with Maven</a>. Enjoy!</p>
+                <p>The Lagom team are proud to announce that Lagom 1.0 has been released! We have been working hard on hardening Lagom and simplifying the APIs. We now have a framework that is production ready, and look forward to beginning this journey with a new way of writing microservices. We&rsquo;re also launching a new website and blog, which we hope will serve the community well going forward.</p>
+<p>In this post I&rsquo;ll recap the major features of Lagom, and then highlight some of the changes since the first milestone was released.</p>
+<h2><a href="#major-features" name="major-features">Major features</a></h2>
+<p>Lagom is a microservices framework that was built to guide developers in best practices. From architecture to development to production, Lagom provides an opinionated view that intentionally constrains what a developer can do and how they should do it. There are four primary areas that Lagom does this in.</p>
+<h3><a href="#communication" name="communication">Communication</a></h3>
+<p>Lagom provides a services API that allows services to invoke each other in a location transparent way. Serialization of requests and responses are handled for you, with Lagom mapping service calls down to idiomatic REST calls which can be easy interoperate with any other technology that speaks REST.</p>
+<p>Communication between nodes is guarded by circuit breakers, with a simple API to inspect and report on circuit break metrics. Lagom also provides streaming via WebSockets between services out of the box, utilizing Akka streams to implement this in an asynchronous fashion.</p>
+<h3><a href="#persistence" name="persistence">Persistence</a></h3>
+<p>Lagom provides an event sourced persistence model with CQRS for queries. In a distributed system, since each service has its own database in a share nothing architecture, it&rsquo;s not possible to have a system wide view of the &ldquo;current&rdquo; state, like a traditional RDBMS tries to maintain. What you can have is knowledge of facts, or events, that happened in the past, and you can pass these events between systems. Taking an event centric view of the world gives you the power to deal with consistency issues, by focusing on the data that you can be sure of, the events that happened.</p>
+<p>The Lagom persistence API provides a straight forward strongly typed way to implement event sourcing and CQRS, and guides developers in how to do this.</p>
+<h3><a href="#development" name="development">Development</a></h3>
+<p>Lagom provides a high productivity development environment. The philosophy of the Lagom development environment is that any new developer to a team should be able to get up and running with that teams development environment in less than 10 minutes.</p>
+<p>Lagom does away with the need to manage scripts and setup instructions for a development environment. These scripts are typically developed in house, are flaky, and get quickly out of date. Lagom takes all the responsibility of starting and managing the development environment itself, including the database, service locator, service gateway, and of course, starting each service.</p>
+<p>Updates to code are reflected immediately, with Lagom hot reloading services whenever their code changes, avoiding productivity killing deployment cycles during development.</p>
+<h3><a href="#production" name="production">Production</a></h3>
+<p>Out of the box, Lagom utilizes Lightbend ConductR for deployment. ConductR manages the deployment and scaling of each service, configures nodes of a service to cluster together via Akka clustering, provides databases and database configuration, and gives operations the tools necessary to manage and visualise the system.</p>
+<p>Lagom services can be built as ConductR bundles, and will use the ConductR implementation of the service locator with zero configuration.</p>
+<h2><a href="#new-since-m1" name="new-since-m1">New since M1</a></h2>
+<p>The biggest change in Lagom since M1 was released is the way that URL parameters in REST calls are managed has been greatly simplified. Previously they were modelled as a parameter on the service call, now they are passed directly to the service call builder. This alleviates the need to define ID serializers, which was one of the most confusing parts of the Lagom API.</p>
+<p>Circuit breaking has been made a service locator responsibility, as service locators have knowledge of what nodes are available and can implement the circuit breaking on a per node basis.</p>
+<p>Support has also been implemented for a configuration based service locator, for ad hoc production deployment.</p>
+<h2><a href="#get-started" name="get-started">Get started</a></h2>
+<p>So why not try Lagom today! You can get started with the <a href="/documentation/1.0.x/java/Home.html">documentation</a>, and be immediately productive with confidence as the framework guides you to implement your microservices.</p>
 
                 <h2>Share</h2>
                 <div class="addthis_sharing_toolbox"></div>
@@ -328,9 +343,9 @@
     <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-57a0eb1ac33f75f8"></script>
     <script>
         var disqus_config = function () {
-            this.page.url = "https://www.lagomframework.com/blog/lagom-1-1.html";
-            this.page.identifier = "lagom-1-1";
-            this.page.title = "Lagom 1.1 is released!";
+            this.page.url = "https://www.lagomframework.com/blog/test1.html";
+            this.page.identifier = "test1";
+            this.page.title = "Test1 Released";
         };
         (function() { // DON'T EDIT BELOW THIS LINE
             var d = document, s = d.createElement('script');
