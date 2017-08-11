@@ -6,6 +6,6 @@ pages:
   - echo "starting static noop script"
   artifacts:
     paths:
-    - target/web/stage
+    - public/
   only:
   - template
