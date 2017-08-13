@@ -1,3 +1,12 @@
+---
+title: Readme of Sekyll
+date: 2017-08-13
+author_github: raisercostin
+tags: news sample readme
+summary: >
+    Readme file of sekyll.
+---
+
 # Sekyll
 # How it works
 

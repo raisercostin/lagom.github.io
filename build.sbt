@@ -2,10 +2,14 @@ import java.io.Closeable
 
 import scala.concurrent.Await
 
-lazy val `lagom-docs` = (project in file("."))
+lazy val `sekyll` = (project in file("."))
   .enablePlugins(SbtTwirl, SbtWeb)
 
 scalaVersion := "2.11.7"
+//scalacOptions += "-Ylog-classpath"
+JsEngineKeys.engineType := JsEngineKeys.EngineType.Node
+WebKeys.stagingDirectory := file("public")
+cleanFiles <+= baseDirectory { base => base / "public" }
 
 libraryDependencies ++= Seq(
   "org.webjars" % "normalize.css" % "3.0.2",
@@ -13,13 +17,16 @@ libraryDependencies ++= Seq(
   "org.webjars" % "jquery" % "2.2.1",
   "org.webjars.bower" % "waypoints" % "4.0.0",
   "org.webjars" % "prettify" % "4-Mar-2013",
-  "com.lightbend.markdown" %% "lightbend-markdown-server" % "1.5.0",
+  "org.webjars" % "bootstrap" % "4.0.0-alpha.6-1",
+  "org.webjars" % "font-awesome" % "4.7.0",
+
+  "com.lightbend.markdown" %% "lightbend-markdown-server" % "1.5.2",
   "org.yaml" % "snakeyaml" % "1.12"
 )
 
 resolvers += Resolver.bintrayIvyRepo("typesafe", "ivy-releases")
-
-lazy val assetFingerPrint = "git rev-parse HEAD".!!.trim
+val publicVersion = "0.1"
+val assetFingerPrint = publicVersion //"git rev-parse HEAD".!!.trim
 
 val httpServer = AttributeKey[Closeable]("http-server")
 
@@ -59,7 +66,8 @@ val runCommand = Command.make("run") { state =>
 
       val extraSettings = Seq(
         javaOptions += "-Ddev",
-        fork := true // required for javaOptions to take effect
+        //fork := true // required for javaOptions to take effect
+        fork := false //needed for debug
       )
       val stateWithExtraSettings = extracted.append(extraSettings, stateWithStop)
       Parser.parse("~web-stage", stateWithExtraSettings.combinedParser) match {
@@ -69,7 +77,45 @@ val runCommand = Command.make("run") { state =>
   }
 }
 
-commands ++= Seq(runCommand, stopCommand)
+val deploySiteCommand = Command.args("deploySite","deploy staged site to master branch") { (state, args) =>
+  println("start deploy")
+  /*
+  //val state2 = Command.process("clean",state)
+  //val state3 = Command.process("web-stage",state2)
+  val state3 = state
+  val remote = "origin"
+  println(System.getProperty("java.class.path"))
+  println(System.getenv("CLASSPATH"))
+  val deployBranch = "master"
+  println("hi header")
+  "cmd /c echo hi".!!
+  println("git")
+  "cmd /c git status".!!
+  println("done")
+  
+  val commands = s"""
+  git status
+  """
+  
+  echo git init;
+  echo git add .
+  echo commit -m "Website build"
+  # Push the repo to the master branch of the main repo
+  echo git push ../../.. master:$deployBranch -f
+
+  # Push the repo to the website
+  cd ../../..
+  echo git push $remote $deployBranch:master -f 
+  """
+  
+  println(s"running [$commands]")
+  commands.!!
+  state3
+  */
+  state
+}
+
+commands ++= Seq(runCommand, stopCommand, deploySiteCommand)
 
 val generateHtml = taskKey[Seq[File]]("Generate the site HTML")
 
@@ -81,7 +127,7 @@ generateHtml <<= Def.taskDyn {
   val blogDir = sourceDirectory.value / "blog"
   Def.task {
     (runMain in Compile).toTask(Seq(
-      "com.lightbend.lagom.docs.DocumentationGenerator",
+      "eu.dcsi.sekyll.docs.DocumentationGenerator",
       outputDir,
       docsDir,
       markdownDir,
@@ -95,6 +141,16 @@ generateHtml <<= Def.taskDyn {
 def path(segments: String*): String =  segments.mkString(java.io.File.separator)
 
 Concat.groups := Seq(
+  s"$assetFingerPrint-all.css" -> group(Seq(
+      path("lib", "bootstrap", "css", "bootstrap.css"),
+      path("lib", "font-awesome", "css", "font-awesome.css"),
+      path("main.css")
+  )),
+  s"$assetFingerPrint-all.js" -> group(Seq(
+    path("lib", "bootstrap", "js", "bootstrap.js"),
+    path("js", "main.js")
+  )),
+
   s"$assetFingerPrint-all-styles-concat.css" -> group(Seq(
       path("lib", "foundation", "dist", "foundation.min.css"),
       path("lib", "prettify", "prettify.css"),
