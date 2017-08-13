@@ -1,13 +1,12 @@
-**
-This fork was moved to start a completly new project at https://github.com/raisercostin/sekyll
+# !! Notice !!
+This fork was moved to start a completely new project at https://github.com/raisercostin/sekyll
 
 Sekyll = Scala jekyll - because jekyll breaks the Principle of Least Surprise way too often.
 The lagom/lagom.github.io contains a lot of generated content: site and java docs. Besides is focused on generating the site for lagom.
-**
 
 # Sekyll
 
- How it works
+## How it works
 
 Everything in `public/` is published at raisercostin.gitlab.io .
 The content in `public` is a manual copy of a `target/web/stage`.
