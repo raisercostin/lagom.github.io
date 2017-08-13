@@ -1,5 +1,13 @@
+**
+This fork was moved to start a completly new project at https://github.com/raisercostin/sekyll
+
+Sekyll = Scala jekyll - because jekyll breaks the Principle of Least Surprise way too often.
+The lagom/lagom.github.io contains a lot of generated content: site and java docs. Besides is focused on generating the site for lagom.
+**
+
 # Sekyll
-# How it works
+
+ How it works
 
 Everything in `public/` is published at raisercostin.gitlab.io .
 The content in `public` is a manual copy of a `target/web/stage`.
@@ -102,3 +110,4 @@ Edit the front matter to suit your needs. The `title` and `date` fields are comp
 The `tags` field can be used to specify a space separated list of tags. Multi-word tags can be configured by separating the words with a `+` symbol. The `summary` field can be used to provide a summary, this is what's displayed on the blog index page as well as on the tag index pages, and it will be markdown rendered. Usually it will simply be the first paragraph of the blog post.
 
 The remainder of the file is the blog post. You can preview your blog post by following the [Developing the website](#developing-the-website) instructions above.
+
