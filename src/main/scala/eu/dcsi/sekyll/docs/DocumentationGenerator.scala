@@ -91,7 +91,7 @@ object DocumentationGenerator extends App {
     "contact.html" -> eu.dcsi.website.html.contact,
     "blog-home-1.html" -> eu.dcsi.website.html.blogHome1,
     "blog-home-2.html" -> eu.dcsi.website.html.blogHome2,
-    "blog-post.html" -> eu.dcsi.website.html.blogPost,
+    //"blog-post.html" -> eu.dcsi.website.html.blogPost,
     "faq.html" -> eu.dcsi.website.html.faq,
     "full-width.html" -> eu.dcsi.website.html.fullWidth,
     "index.html" -> eu.dcsi.website.html.index,
@@ -112,7 +112,8 @@ object DocumentationGenerator extends App {
     "/documentation/scala/index.html" -> s"$context/documentation/$currentDocsVersion/scala/Home.html",
     "/documentation/java/index.html" -> s"$context/documentation/$currentDocsVersion/java/Home.html",
     // Redirect anyone heading to the old download page to the get started page
-    "/download.html" -> "/get-started.html"
+    "/download.html" -> "/get-started.html",
+    "blog-post.html" -> "/blog/article1.html"
   )
 
   val outputDir = new File(args(0))
@@ -194,7 +195,7 @@ object DocumentationGenerator extends App {
     renderedBlogPosts.map {
       case (post, renderedPost) =>
         val fixedLinks = if (context.nonEmpty) FeedFormatter.makeAbsoluteLinks(renderedPost, context) else renderedPost
-        val page = html.blogPost(post, fixedLinks)
+        val page = eu.dcsi.website.part.html.blogPost(post, fixedLinks)
         savePage(s"blogPost ${post.id}",s"blog/${post.id}.html", page, sitemapPriority = "0.8")
     } ++ blogPostsByTag.map {
       // Tag pages

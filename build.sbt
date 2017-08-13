@@ -142,7 +142,8 @@ def path(segments: String*): String =  segments.mkString(java.io.File.separator)
 
 Concat.groups := Seq(
   s"$assetFingerPrint-all.css" -> group(Seq(
-      //path("lib", "bootstrap", "css", "bootstrap.css"),
+      path("lib", "bootstrap", "css", "bootstrap.css"),
+      path("lib", "font-awesome", "css", "font-awesome.css"),
       path("main.css")
   )),
   s"$assetFingerPrint-all.js" -> group(Seq(

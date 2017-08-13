@@ -1,21 +1,45 @@
 @import eu.dcsi.sekyll.docs.BlogSummary
+@import eu.dcsi.sekyll.docs.BlogPost
 @import eu.dcsi.sekyll.docs.LagomContext
 @import eu.dcsi.website._
 
-@(implicit context: LagomContext)
-@part.html.main(Some("DCSI"))()() {
+@(blogPost: BlogPost, content: Html)(implicit context: LagomContext)
+
+@part.html.main(Some(blogPost.title)){
+	 @* head *@
+    <link href="@context.path/blog/atom.xml" type="application/atom+xml" rel="home" title="ATOM Feed" />
+}{
+	@* footer *@
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-57a0eb1ac33f75f8"></script>
+    <script>
+        var disqus_config = function () {
+            this.page.url = "@{context.baseUrl}/blog/@{blogPost.id}.html";
+            this.page.identifier = "@blogPost.id";
+            this.page.title = "@{Html(JavaScriptFormat.escape(blogPost.title).body)}";
+        };
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = '//lagomframework.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+} {
 
     <!-- Page Content -->
     <div class="container">
 
         <!-- Page Heading/Breadcrumbs -->
-        <h1 class="mt-4 mb-3">Post Title <small>by <a href="#">Start Bootstrap</a></small></h1>
+        <h1 class="mt-4 mb-3">@blogPost.title<small>by 
+                        <a href="@blogPost.author.url">
+                            <img src="@blogPost.author.avatar" style="width:2em;"/>
+                        </a></small></h1>
 
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
                 <a href="index.html">Home</a>
             </li>
-            <li class="breadcrumb-item active">Blog Home 2</li>
+            <li class="breadcrumb-item active">@blogPost.title</li>
         </ol>
 
         <div class="row">
@@ -29,11 +53,12 @@
                 <hr>
 
                 <!-- Date/Time -->
-                <p>Posted on January 1, 2017 at 12:00 PM</p>
-
+				<p>Posted on @blogPost.date.toString("MMMM d, yyyy") at @blogPost.date.toString("HH:mm") by <a class="blog-author-name" href="@blogPost.author.url"><img src="@blogPost.author.avatar" style="width:2em;"/> @blogPost.author.name</a></p>
                 <hr>
 
                 <!-- Post Content -->
+                @content
+                @*
                 <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus, vero, obcaecati, aut, error quam sapiente nemo saepe quibusdam sit excepturi nam quia corporis eligendi eos magni recusandae laborum minus inventore?</p>
 
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus.</p>
@@ -52,6 +77,7 @@
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum, dolor quis. Sunt, ut, explicabo, aliquam tenetur ratione tempore quidem voluptates cupiditate voluptas illo saepe quaerat numquam recusandae? Qui, necessitatibus, est!</p>
 
                 <hr>
+                *@
 
                 <!-- Comments Form -->
                 <div class="card my-4">

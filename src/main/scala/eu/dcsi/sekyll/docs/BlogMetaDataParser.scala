@@ -15,6 +15,7 @@ import play.api.libs.json.{ Json, Reads }
 import scala.collection.concurrent.TrieMap
 import scala.util.control.NonFatal
 import scala.io.{ Codec, Source }
+import java.nio.charset.CodingErrorAction
 
 object BlogMetaDataParser {
 
@@ -65,7 +66,8 @@ object BlogMetaDataParser {
   }
 
   private def extractFrontMatter(stream: InputStream): (Yaml, String) = {
-    val lines = Source.fromInputStream(stream).getLines()
+    val decoder = Codec.UTF8.decoder.onMalformedInput(CodingErrorAction.IGNORE)
+    val lines = Source.fromInputStream(stream)(decoder).getLines()
       .dropWhile(_.isEmpty)
 
     // Extract attributes from the front matter
