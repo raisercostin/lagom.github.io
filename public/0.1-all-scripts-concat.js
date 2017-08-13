@@ -61,7 +61,3 @@ h={};g()}};typeof define==="function"&&define.amd&&define("google-code-prettify"
 /** lib\prettify\lang-scala.js **/
 PR.registerLangHandler(PR.createSimpleLexer([["pln",/^[\t\n\r \xa0]+/,null,"\t\n\r \u00a0"],["str",/^"(?:""(?:""?(?!")|[^"\\]|\\.)*"{0,3}|(?:[^\n\r"\\]|\\.)*"?)/,null,'"'],["lit",/^`(?:[^\n\r\\`]|\\.)*`?/,null,"`"],["pun",/^[!#%&(--:-@[-^{-~]+/,null,"!#%&()*+,-:;<=>?@[\\]^{|}~"]],[["str",/^'(?:[^\n\r'\\]|\\(?:'|[^\n\r']+))'/],["lit",/^'[$A-Z_a-z][\w$]*(?![\w$'])/],["kwd",/^(?:abstract|case|catch|class|def|do|else|extends|final|finally|for|forSome|if|implicit|import|lazy|match|new|object|override|package|private|protected|requires|return|sealed|super|throw|trait|try|type|val|var|while|with|yield)\b/],
 ["lit",/^(?:true|false|null|this)\b/],["lit",/^(?:0(?:[0-7]+|x[\da-f]+)l?|(?:0|[1-9]\d*)(?:(?:\.\d+)?(?:e[+-]?\d+)?f?|l?)|\\.\d+(?:e[+-]?\d+)?f?)/i],["typ",/^[$_]*[A-Z][\d$A-Z_]*[a-z][\w$]*/],["pln",/^[$A-Z_a-z][\w$]*/],["com",/^\/(?:\/.*|\*(?:\/|\**[^*/])*(?:\*+\/?)?)/],["pun",/^(?:\.+|\/)/]]),["scala"]);
-
-/** main.min.js **/
-jQuery.noConflict(),function(n){n(function(){n(document).foundation();var o=navigator.userAgent.match(/iPhone|iPad|iPod/i);o&&n("html").addClass("ios").removeClass("noios"),new Waypoint.Sticky({element:n(".social-bar")[0]});var i=n("#docs-version");i&&i.change(function(){var o=n("option:selected",this);window.location.href=o.val()}),window.prettyPrint&&prettyPrint()})}(jQuery);
-//# sourceMappingURL=main.min.js.map
